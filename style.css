@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background: linear-gradient(135deg, #0a2e1f, #1b4d2e, #2d6a4f);
     min-height: 100vh;
     padding: 20px;
 }
@@ -66,7 +66,7 @@ h1 {
 .card-title {
     font-size: 1.2rem;
     font-weight: bold;
-    color: #333;
+    color: #1b5e2a;
 }
 
 .card-location {
@@ -79,7 +79,7 @@ h1 {
     display: block;
     margin: 0 auto;
     padding: 14px 35px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #2d6a4f, #1b4d2e);
     color: white;
     border: none;
     border-radius: 50px;
@@ -92,6 +92,11 @@ h1 {
 .load-more:hover {
     transform: scale(1.05);
     opacity: 0.9;
+}
+
+.load-more:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 footer {
