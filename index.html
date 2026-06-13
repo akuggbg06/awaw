@@ -3,23 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pemandangan Hutan & Pepohonan Hijau</title>
-    <link rel="stylesheet" href="style.css">
+    <title>VistaLux | Pemandangan Indah</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            background: #0a0f1e;
+            overflow-x: hidden;
+        }
+
+        /* SLIDESHOW BACKGROUND */
+        .slideshow-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1.8s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        /* OVERLAY BIAR TEKS KELIHATAN */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(3px);
+            z-index: 1;
+        }
+
+        /* MAIN CONTENT */
+        .content {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        /* GLASS CARD */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            padding: 2.5rem;
+            max-width: 800px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: scale(1.01);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, #ffecb3);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .grid-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .scene-card {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            border-radius: 1rem;
+            padding: 1rem;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .scene-card:hover {
+            background: rgba(0, 0, 0, 0.6);
+            transform: translateY(-5px);
+        }
+
+        .scene-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .scene-card p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 0.75rem 1.8rem;
+            border-radius: 3rem;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background: rgba(255,255,255,0.35);
+            transform: scale(1.03);
+        }
+
+        footer {
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .glass-card { padding: 1.5rem; }
+            .grid-gallery { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🌿 Hutan & Pepohonan Rimbun 🌲 jembowutt</h1>
-        <p class="subtitle">Lebih dari 30 pemandangan alam yang asri, hijau, dan menenangkan</p>
+
+<div class="slideshow-bg" id="slideshow"></div>
+<div class="overlay"></div>
+
+<div class="content">
+    <div class="glass-card">
+        <h1>✨ VistaLux ✨</h1>
+        <div class="tagline">Keindahan alam yang tak terbatas — setiap frame adalah karya seni</div>
         
-        <div class="gallery-grid" id="gallery"></div>
-        
-        <button id="loadMoreBtn" class="load-more">Tampilkan Lebih Banyak 🌱</button>
+        <div class="grid-gallery" id="sceneList">
+            <!-- diisi js nanti -->
+        </div>
+
+        <div class="btn-group">
+            <button class="btn" id="prevBtn">◀ Sebelumnya</button>
+            <button class="btn" id="nextBtn">Berikutnya ▶</button>
+        </div>
+        <footer>Nikmati setiap panorama — alam berbicara tanpa kata</footer>
     </div>
+</div>
+
+<script>
+    // DAFTAR GAMBAR PEMANDANGAN INDAH (HIGH QUALITY FREE IMAGES)
+    // Gw pake unsplash & Pexels CDN biar cepet dan legal, gampang
+    const images = [
+        "https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/1261728/pexels-photo-1261728.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/210186/pexels-photo-210186.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/772803/pexels-photo-772803.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/1543793/pexels-photo-1543793.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/532826/pexels-photo-532826.jpeg?auto=compress&cs=tinysrgb&w=1600"
+    ];
+
+    // Nama tempat / judul pemandangan biar aesthetic
+    const titles = [
+        "⛰️ Pegunungan Alpen", "🏞️ Ngarai Tersembunyi", "🌊 Pantai Maldives", 
+        "🍃 Hutan Bambu Jepang", "❄️ Danau Beku Norwegia", "🌈 Bukit Pelangi Peru",
+        "🏔️ Puncak Everest", "🌲 Hutan Ajaib Skotlandia", "🏝️ Bora Bora", "🌄 Grand Canyon"
+    ];
     
-    <footer>
-        <p>Dibuat dengan ❤️ | Pemandangan Hutan dari Unsplash</p>
-    </footer>
-    
-    <script src="script.js"></script>
+    let currentIndex = 0;
+    const slideshowDiv = document.getElementById('slideshow');
+    let slides = [];
+
+    // Buat element slide
+    function buildSlideshow() {
+        slideshowDiv.innerHTML = '';
+        slides = [];
+        images.forEach((imgUrl, idx) => {
+            const slideDiv = document.createElement('div');
+            slideDiv.className = 'slide';
+            slideDiv.style.backgroundImage = `url('${imgUrl}')`;
+            if (idx === 0) slideDiv.classList.add('active');
+            slideshowDiv.appendChild(slideDiv);
+            slides.push(slideDiv);
+        });
+    }
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            if (i === index) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.remove('active');
+            }
+        });
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % images.length;
+        showSlide(currentIndex);
+        updateSceneHighlight();
+    }
+
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showSlide(currentIndex);
+        updateSceneHighlight();
+    }
+
+    // Render daftar scene card
+    function renderSceneList() {
+        const container = document.getElementById('sceneList');
+        container.innerHTML = '';
+        titles.forEach((title, idx) => {
+            const card = document.createElement('div');
+            card.className = 'scene-card';
+            card.setAttribute('data-idx', idx);
+            card.innerHTML = `
+                <h3>${title}</h3>
+                <p>Panorama ${idx+1} dari ${images.length} lokasi eksotis</p>
+            `;
+            card.addEventListener('click', () => {
+                currentIndex = idx;
+                showSlide(currentIndex);
+                updateSceneHighlight();
+            });
+            container.appendChild(card);
+        });
+        updateSceneHighlight();
+    }
+
+    function updateSceneHighlight() {
+        const cards = document.querySelectorAll('.scene-card');
+        cards.forEach((card, idx) => {
+            if (idx === currentIndex) {
+                card.style.border = "2px solid rgba(255,215,0,0.8)";
+                card.style.boxShadow = "0 0 15px rgba(255,215,0,0.4)";
+            } else {
+                card.style.border = "1px solid rgba(255,255,255,0.2)";
+                card.style.boxShadow = "none";
+            }
+        });
+    }
+
+    // Auto slide tiap 5 detik
+    let autoInterval = setInterval(() => {
+        nextSlide();
+    }, 5000);
+
+    // Tombol manual
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        clearInterval(autoInterval);
+        nextSlide();
+        autoInterval = setInterval(() => nextSlide(), 5000);
+    });
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        clearInterval(autoInterval);
+        prevSlide();
+        autoInterval = setInterval(() => nextSlide(), 5000);
+    });
+
+    // Init
+    buildSlideshow();
+    renderSceneList();
+    showSlide(0);
+</script>
 </body>
 </html>
