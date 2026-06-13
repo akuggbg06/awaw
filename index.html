@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VistaLight | Pemandangan</title>
+    <title>PinterestScape | Pemandangan</title>
     <style>
         * {
             margin: 0;
@@ -12,153 +12,211 @@
         }
 
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            min-height: 100vh;
-            background: #0a0f1e;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
         }
 
-        /* SLIDESHOW PAKE CSS DOANG - RINGAN BANGET */
-        .slideshow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0;
-            animation: fadeEffect 20s infinite;
-        }
-
-        /* 10 gambar, masing2 2 detik kliatan + 18 detik fade? Gampangnya pake delay */
-        .slide:nth-child(1) { animation-delay: 0s; }
-        .slide:nth-child(2) { animation-delay: 2s; }
-        .slide:nth-child(3) { animation-delay: 4s; }
-        .slide:nth-child(4) { animation-delay: 6s; }
-        .slide:nth-child(5) { animation-delay: 8s; }
-        .slide:nth-child(6) { animation-delay: 10s; }
-        .slide:nth-child(7) { animation-delay: 12s; }
-        .slide:nth-child(8) { animation-delay: 14s; }
-        .slide:nth-child(9) { animation-delay: 16s; }
-        .slide:nth-child(10) { animation-delay: 18s; }
-
-        @keyframes fadeEffect {
-            0% { opacity: 0; }
-            8% { opacity: 1; }
-            17% { opacity: 1; }
-            25% { opacity: 0; }
-            100% { opacity: 0; }
-        }
-
-        /* OVERLAY TIPIS */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.35);
-            z-index: 1;
-        }
-
-        /* KONTEN - SIMPLE, GA ADA TOMBOL */
-        .content {
-            position: relative;
-            z-index: 2;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* HEADER SIMPLE */
+        .header {
             text-align: center;
-            color: white;
-            padding: 1rem;
+            padding: 24px 16px 32px;
+            background: white;
+            border-radius: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .header p {
+            color: #666;
+            margin-top: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* GRID MASONRY PAKE CSS COLUMN (RINGAN, GAK PAKE JS) */
+        .masonry {
+            column-count: 4;
+            column-gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .card {
-            background: rgba(0, 0, 0, 0.55);
-            border-radius: 1rem;
-            padding: 2rem;
-            max-width: 650px;
+            break-inside: avoid;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 1px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .card img {
             width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
         }
 
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1px;
+        .card-content {
+            padding: 12px 14px 16px;
         }
 
-        p {
-            font-size: 0.95rem;
-            opacity: 0.85;
-            line-height: 1.5;
+        .card-content h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
         }
 
-        hr {
-            margin: 1rem 0;
-            border: 0.5px solid rgba(255,255,255,0.3);
-        }
-
-        .mini-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.5rem;
-            margin-top: 1rem;
+        .card-content p {
             font-size: 0.75rem;
-            text-align: left;
+            color: #888;
         }
 
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .masonry { column-count: 3; }
+        }
+        @media (max-width: 800px) {
+            .masonry { column-count: 2; }
+            body { padding: 12px; }
+        }
         @media (max-width: 500px) {
-            h1 { font-size: 1.5rem; }
-            .card { padding: 1rem; }
-            .mini-grid { grid-template-columns: 1fr; }
+            .masonry { column-count: 1; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 32px 16px;
+            color: #aaa;
+            font-size: 0.75rem;
         }
     </style>
 </head>
 <body>
 
-<div class="slideshow">
-    <div class="slide" style="background-image: url('https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
-    <div class="slide" style="background-image: url('https://images.pexels.com/photos/1261728/pexels-photo-1261728.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
-    <div class="slide" style="background-image: url('https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
-    <div class="slide" style="background-image: url('https://images.pexels.com/photos/210186/pexels-photo-210186.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
-    <div class="slide" style="background-image: url('https://images.pexels.com/photos/772803/pexels-photo-772803.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
-    <div class="slide" style="background-image: url('https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
-    <div class="slide" style="background-image: url('https://images.pexels.com/photos/1543793/pexels-photo-1543793.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
-    <div class="slide" style="background-image: url('https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
-    <div class="slide" style="background-image: url('https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
-    <div class="slide" style="background-image: url('https://images.pexels.com/photos/532826/pexels-photo-532826.jpeg?auto=compress&cs=tinysrgb&w=600');"></div>
+<div class="header">
+    <h1>🌄 P e a k s</h1>
+    <p>inspirasi pemandangan dari seluruh dunia</p>
 </div>
-<div class="overlay"></div>
 
-<div class="content">
+<div class="masonry">
+    <!-- CARD 1 -->
     <div class="card">
-        <h1>✦ VistaLight ✦</h1>
-        <p>Keindahan tanpa beban</p>
-        <hr>
-        <p>Pegunungan • Pantai • Hutan • Danau • Ngarai</p>
-        <div class="mini-grid">
-            <span>🏔️ Alpen</span>
-            <span>🏝️ Maldives</span>
-            <span>🍃 Hutan Jepang</span>
-            <span>❄️ Norwegia</span>
-            <span>🌈 Pelangi Peru</span>
-            <span>🌊 Bora Bora</span>
+        <img src="https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=600" loading="lazy">
+        <div class="card-content">
+            <h3>⛰️ Pegunungan Alpen</h3>
+            <p>Swiss • 2.345m</p>
         </div>
-        <hr>
-        <p style="font-size: 0.7rem;">alam berbicara, diamlah dan nikmati</p>
+    </div>
+
+    <div class="card">
+        <img src="https://images.pexels.com/photos/1261728/pexels-photo-1261728.jpeg?auto=compress&cs=tinysrgb&w=600" loading="lazy">
+        <div class="card-content">
+            <h3>🏞️ Ngarai Tersembunyi</h3>
+            <p>Arizona, USA</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=600" loading="lazy">
+        <div class="card-content">
+            <h3>🌊 Pantai Kelingking</h3>
+            <p>Bali, Indonesia</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.pexels.com/photos/210186/pexels-photo-210186.jpeg?auto=compress&cs=tinysrgb&w=600" loading="lazy">
+        <div class="card-content">
+            <h3>🍃 Hutan Bambu Arashiyama</h3>
+            <p>Kyoto, Jepang</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.pexels.com/photos/772803/pexels-photo-772803.jpeg?auto=compress&cs=tinysrgb&w=600" loading="lazy">
+        <div class="card-content">
+            <h3>❄️ Danau Biru Norwegia</h3>
+            <p>Lofoten, Norwegia</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&w=600" loading="lazy">
+        <div class="card-content">
+            <h3>🌈 Vinicunca</h3>
+            <p>Peru • Rainbow Mountain</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.pexels.com/photos/1543793/pexels-photo-1543793.jpeg?auto=compress&cs=tinysrgb&w=600" loading="lazy">
+        <div class="card-content">
+            <h3>🏔️ Everest Base Camp</h3>
+            <p>Nepal</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&w=600" loading="lazy">
+        <div class="card-content">
+            <h3>🌲 Hutan Glen Coe</h3>
+            <p>Skotlandia</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&w=600" loading="lazy">
+        <div class="card-content">
+            <h3>🏝️ Bora Bora</h3>
+            <p>Polynesia Prancis</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.pexels.com/photos/532826/pexels-photo-532826.jpeg?auto=compress&cs=tinysrgb&w=600" loading="lazy">
+        <div class="card-content">
+            <h3>🌄 Grand Canyon</h3>
+            <p>Arizona, USA</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.pexels.com/photos/449627/pexels-photo-449627.jpeg?auto=compress&cs=tinysrgb&w=600" loading="lazy">
+        <div class="card-content">
+            <h3>🎋 Hutan Take no Michi</h3>
+            <p>Kyoto, Jepang</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.pexels.com/photos/1252865/pexels-photo-1252865.jpeg?auto=compress&cs=tinysrgb&w=600" loading="lazy">
+        <div class="card-content">
+            <h3>⛰️ Mout Fuji & Sakura</h3>
+            <p>Jepang</p>
+        </div>
     </div>
 </div>
+
+<footer>
+    scroll • explore • terinspirasi
+</footer>
 
 </body>
 </html>
