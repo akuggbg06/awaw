@@ -1,16 +1,20 @@
 const landscapes = [
-    { title: "Aurora Borealis", location: "Norway", url: "https://images.unsplash.com/photo-1579033461380-adb47c3eb938?w=800&h=600&fit=crop" },
-    { title: "Santorini Sunset", location: "Greece", url: "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800&h=600&fit=crop" },
-    { title: "Swiss Alps", location: "Switzerland", url: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&h=600&fit=crop" },
-    { title: "Tegalalang Rice Terrace", location: "Bali, Indonesia", url: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&h=600&fit=crop" },
-    { title: "Maldives Paradise", location: "Maldives", url: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&h=600&fit=crop" },
-    { title: "Mount Fuji & Sakura", location: "Japan", url: "https://images.unsplash.com/photo-1522383225653-ed111181a951?w=800&h=600&fit=crop" },
-    { title: "Grand Canyon", location: "Arizona, USA", url: "https://images.unsplash.com/photo-1505852903341-fc8d3db104d0?w=800&h=600&fit=crop" },
-    { title: "Amazon Rainforest", location: "Brazil", url: "https://images.unsplash.com/photo-1516297227441-69dd1b70022b?w=800&h=600&fit=crop" },
-    { title: "Provence Lavender", location: "France", url: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&h=600&fit=crop" },
-    { title: "Skógafoss Waterfall", location: "Iceland", url: "https://images.unsplash.com/photo-1506968430777-bf7784a87f5e?w=800&h=600&fit=crop" },
-    { title: "Banff National Park", location: "Canada", url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop" },
-    { title: "Milky Way", location: "Chile", url: "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=800&h=600&fit=crop" }
+    { title: "Hutan Tropis Lebat", location: "Amazon, Brasil", url: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=800&h=600&fit=crop" },
+    { title: "Hutan Bambu", location: "Kyoto, Jepang", url: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=800&h=600&fit=crop" },
+    { title: "Pohon Raksasa", location: "Sequoia, USA", url: "https://images.unsplash.com/photo-1503788311181-fa3f9635e34f?w=800&h=600&fit=crop" },
+    { title: "Hutan Pinus", location: "Black Forest, Jerman", url: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&h=600&fit=crop" },
+    { title: "Jungle Rimbun", location: "Borneo, Indonesia", url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&h=600&fit=crop" },
+    { title: "Hutan Musim Gugur", location: "Vermont, USA", url: "https://images.unsplash.com/photo-1504113888836-1dd4ed6d7d2b?w=800&h=600&fit=crop" },
+    { title: "Hutan Lumut", location: "Washington, USA", url: "https://images.unsplash.com/photo-1505765050516-f72fdacb9733?w=800&h=600&fit=crop" },
+    { title: "Hutan Ajaib", location: "Oregon, USA", url: "https://images.unsplash.com/photo-1512838232013-bb401d5c67ef?w=800&h=600&fit=crop" },
+    { title: "Pohon Palem Rimbun", location: "Kosta Rika", url: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800&h=600&fit=crop" },
+    { title: "Hutan Kabut", location: "Taiwan", url: "https://images.unsplash.com/photo-1507504031003-b417219a0fde?w=800&h=600&fit=crop" },
+    { title: "Hutan Hijau", location: "Jerman", url: "https://images.unsplash.com/photo-1444841546160-6e3f4715c771?w=800&h=600&fit=crop" },
+    { title: "Pohon Bonsai Raksasa", location: "Madeira, Portugal", url: "https://images.unsplash.com/photo-1533479327424-4da1c3d180b9?w=800&h=600&fit=crop" },
+    { title: "Hutan Tua", location: "Polandia", url: "https://images.unsplash.com/photo-1501117718542-9d8f94ed1f5a?w=800&h=600&fit=crop" },
+    { title: "Hutan Mangrove", location: "Thailand", url: "https://images.unsplash.com/photo-1582415396135-1e0b6a8e33b5?w=800&h=600&fit=crop" },
+    { title: "Hutan Salju", location: "Finlandia", url: "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&h=600&fit=crop" },
+    { title: "Hutan Pakis", location: "Selandia Baru", url: "https://images.unsplash.com/photo-1517479143999-e0f7904e2b7e?w=800&h=600&fit=crop" }
 ];
 
 let displayedCount = 6;
@@ -23,7 +27,7 @@ function displayImages(count) {
         <div class="card" data-index="${index}">
             <img class="card-image" src="${item.url}" alt="${item.title}" loading="lazy">
             <div class="card-content">
-                <div class="card-title">${item.title}</div>
+                <div class="card-title">🌲 ${item.title}</div>
                 <div class="card-location">📍 ${item.location}</div>
             </div>
         </div>
@@ -34,16 +38,15 @@ displayImages(displayedCount);
 
 loadMoreBtn.addEventListener('click', () => {
     if (displayedCount >= landscapes.length) {
-        loadMoreBtn.textContent = 'Semua Pemandangan Sudah Ditampilkan 🎉';
+        loadMoreBtn.textContent = '✅ Semua Pemandangan Sudah Ditampilkan';
         loadMoreBtn.disabled = true;
-        loadMoreBtn.style.opacity = '0.6';
         return;
     }
     displayedCount = Math.min(displayedCount + 3, landscapes.length);
     displayImages(displayedCount);
 });
 
-// Modal preview
+// Modal buat preview gambar
 const modal = document.createElement('div');
 modal.className = 'modal';
 modal.innerHTML = '<span class="close">&times;</span><img class="modal-content" id="modalImg">';
